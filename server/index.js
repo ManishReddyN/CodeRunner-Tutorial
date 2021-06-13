@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+const routes = require("./routes/paths")
+
 const mongoose = require("mongoose");
 
 const mongoSRV = process.env.MONGO_SRV;
@@ -19,8 +21,11 @@ const corsOptions = {
     optionsSuccessStatus: 200
 }
 app.use(cors(corsOptions));
-console.log("Hello");
 app.use(bodyParser.json());
+app.get("/", (req, res) => {
+    return res.status(200).json({"message": "Up & Running "})
+})
+app.use(routes);
 app.listen(port, () => {
     console.log(`App is running on PORT: ${port}`);
 })
